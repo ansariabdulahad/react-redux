@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
 
-    const [src, setSrc] = useState(null);
-
     const onSubmit = (e) => {
         e.preventDefault();
 
         const url = e.target[0].value;
-        setSrc(url);
+        alert(url);
     }
 
     return (
@@ -41,15 +39,6 @@ const Home = () => {
                                         View
                                     </Link>
                                 </div>
-                                {
-                                    src
-                                    && <img
-                                        src={src}
-                                        width={480}
-                                        alt="image"
-                                        onClick={() => setSrc(null)}
-                                    />
-                                }
                             </form>
                         </div>
                     </div>
