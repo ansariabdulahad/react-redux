@@ -15,7 +15,10 @@ const slices = combineReducers({
 
 const store = configureStore({
     reducer: persistReducer(config, slices),
-    devTools: true
+    devTools: true,
+    middleware: (setup) => setup({
+        serializableCheck: false
+    })
 });
 
 export default store;
