@@ -10,7 +10,7 @@ const config = {
 }
 
 const slices = combineReducers({
-    imagesSlice
+    imagesSlice,
 })
 
 const store = configureStore({
