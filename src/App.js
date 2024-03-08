@@ -1,15 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Component/Home";
 import Images from "./Component/Images";
+import Layout from "./Component/Layout";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
+    element: <Layout><Home /></Layout>
   },
   {
     path: '/images',
-    element: <Images />
+    element: <Layout><Images /></Layout>
   }
 ]);
 

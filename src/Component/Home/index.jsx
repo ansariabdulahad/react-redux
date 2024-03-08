@@ -19,8 +19,8 @@ const Home = () => {
         <>
             <>
                 <div className="flex items-center justify-center bg-amber-50 min-h-screen">
-                    <div className="flex gap-y-6 flex-col border rounded-lg p-4 shadow-lg w-6/12">
-                        <h1 className="text-6xl font-bold  text-violet-600">
+                    <div className="flex gap-y-6 flex-col border rounded-lg p-4 shadow-lg sm:w-6/12">
+                        <h1 className="text-4xl sm:text-6xl font-bold  text-violet-600">
                             Paste Image URL
                         </h1>
                         <div>
