@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Component/Home";
 import Images from "./Component/Images";
 import Layout from "./Component/Layout";
+import NotFound from "./Component/404";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: '/images',
     element: <Layout><Images /></Layout>
+  },
+  {
+    path: '/*',
+    element: <Layout><NotFound /></Layout>
   }
 ]);
 
