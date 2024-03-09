@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import imagesSlice from "./slices/images.slice";
-import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import imagesSlice from "./slices/images.slice";
+import authSlice from "./slices/auth.slice";
 
 const config = {
     key: 'root',
@@ -11,6 +12,7 @@ const config = {
 
 const slices = combineReducers({
     imagesSlice,
+    authSlice
 })
 
 const store = configureStore({
