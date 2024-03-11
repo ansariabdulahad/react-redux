@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
                 <div>
                     <div className="flex justify-around items-center bg-slate-900">
                         <h1 className="text-white text-2xl font-bold">Redux</h1>
-                        <ul className="flex gap-8">
+                        <ul className="flex gap-8 z-50">
                             {
                                 menus?.map((item, index) => (
                                     <>
