@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../redux/slices/auth.slice";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+    const auth = useSelector(response => response.authSlice);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
@@ -44,59 +45,61 @@ const Login = () => {
         }
     }
 
-    return (
-        <>
+    return auth.user
+        ? <Navigate to={'/profile'} />
+        : (
             <>
-                <div className="flex justify-center items-center min-h-screen bg-red-100">
-                    <div className="flex flex-col gap-y-4 bg-white m-2 sm:m-0 rounded-lg px-8 py-6 w-96 shadow-lg">
-                        <h1 className="text-2xl font-semibold text-slate-800">Login</h1>
-                        <form
-                            onSubmit={onSubmit}
-                            className="flex flex-col gap-y-4">
-                            <div className="flex flex-col gap-y-2">
-                                <label className="text-slate-600 font-semibold">Username</label>
-                                <input
-                                    type="text"
-                                    placeholder="@gmail.com"
-                                    required
-                                    className="p-2 border border-slate-200 rounded"
-                                    name="email"
-                                    value={user.email}
-                                    onChange={handleInput}
-                                />
-                            </div>
-                            <div className="flex flex-col gap-y-2">
-                                <label className="text-slate-600 font-semibold">Password</label>
-                                <input
-                                    type="password"
-                                    placeholder="********"
-                                    required
-                                    className="p-2 border border-slate-200 rounded"
-                                    name="password"
-                                    value={user.password}
-                                    onChange={handleInput}
-                                />
-                            </div>
-                            <div className="flex justify-between items-center mt-1">
-                                <div className="flex gap-x-2 items-center justify-center">
+                <>
+                    <div className="flex justify-center items-center min-h-screen bg-red-100">
+                        <div className="flex flex-col gap-y-4 bg-white m-2 sm:m-0 rounded-lg px-8 py-6 w-96 shadow-lg">
+                            <h1 className="text-2xl font-semibold text-slate-800">Login</h1>
+                            <form
+                                onSubmit={onSubmit}
+                                className="flex flex-col gap-y-4">
+                                <div className="flex flex-col gap-y-2">
+                                    <label className="text-slate-600 font-semibold">Username</label>
                                     <input
-                                        type="checkbox"
-                                        name="remember"
-                                        disabled={(user.email.length && user.password.length) === 0}
+                                        type="text"
+                                        placeholder="@gmail.com"
+                                        required
+                                        className="p-2 border border-slate-200 rounded"
+                                        name="email"
+                                        value={user.email}
+                                        onChange={handleInput}
                                     />
-                                    <label className="text-slate-600 font-semibold">Remember Me !</label>
                                 </div>
-                                <button
-                                    className="bg-indigo-500 hover:bg-indigo-400 px-6 py-2 text-white font-semibold rounded-lg"
-                                    disabled={(user.email.length && user.password.length) === 0}
-                                >Login</button>
-                            </div>
-                        </form>
+                                <div className="flex flex-col gap-y-2">
+                                    <label className="text-slate-600 font-semibold">Password</label>
+                                    <input
+                                        type="password"
+                                        placeholder="********"
+                                        required
+                                        className="p-2 border border-slate-200 rounded"
+                                        name="password"
+                                        value={user.password}
+                                        onChange={handleInput}
+                                    />
+                                </div>
+                                <div className="flex justify-between items-center mt-1">
+                                    <div className="flex gap-x-2 items-center justify-center">
+                                        <input
+                                            type="checkbox"
+                                            name="remember"
+                                            disabled={(user.email.length && user.password.length) === 0}
+                                        />
+                                        <label className="text-slate-600 font-semibold">Remember Me !</label>
+                                    </div>
+                                    <button
+                                        className="bg-indigo-500 hover:bg-indigo-400 px-6 py-2 text-white font-semibold rounded-lg"
+                                        disabled={(user.email.length && user.password.length) === 0}
+                                    >Login</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </>
             </>
-        </>
-    );
+        );
 }
 
 export default Login;
