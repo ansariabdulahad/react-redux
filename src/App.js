@@ -1,3 +1,4 @@
+import 'animate.css';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Component/Home";
 import Images from "./Component/Images";
