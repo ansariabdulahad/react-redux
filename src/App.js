@@ -4,6 +4,7 @@ import Images from "./Component/Images";
 import Layout from "./Component/Layout";
 import NotFound from "./Component/404";
 import Login from "./Component/Login";
+import Profile from "./Component/Profile";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Layout><Login /></Layout>
+  },
+  {
+    path: '/profile',
+    element: <Layout><Profile /></Layout>
   },
   {
     path: '/*',

@@ -2,9 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../../redux/slices/auth.slice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
         email: "kminchelle",
@@ -25,7 +27,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            let { data } = await axios({
+            const { data } = await axios({
                 method: 'POST',
                 url: 'https://dummyjson.com/auth/login',
                 data: {
@@ -33,7 +35,10 @@ const Login = () => {
                     password: user.password
                 }
             });
+
             dispatch(login(data));
+            navigate('/profile');
+
         } catch (error) {
             dispatch(logout());
         }
