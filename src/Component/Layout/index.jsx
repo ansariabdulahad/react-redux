@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/auth.slice";
 
 const menus = [
@@ -20,8 +20,14 @@ const menus = [
 
 const Layout = ({ children }) => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const auth = useSelector(response => response.authSlice);
+
+    const logoutFun = () => {
+        dispatch(logout());
+        navigate('/');
+    }
 
     return (
         <>
@@ -59,7 +65,7 @@ const Layout = ({ children }) => {
                                     <button className="px-4 py-2 hover:bg-indigo-600 hover:text-white text-left">My Profile</button>
                                     <button className="px-4 py-2 hover:bg-indigo-600 hover:text-white text-left">{auth.user.email}</button>
                                     <button
-                                        onClick={() => dispatch(logout())}
+                                        onClick={logoutFun}
                                         className="px-4 py-2 hover:bg-indigo-600 hover:text-white text-left">Logout</button>
                                 </div>
                             </div>
