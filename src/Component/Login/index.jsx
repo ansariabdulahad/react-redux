@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../redux/slices/auth.slice";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -13,6 +13,15 @@ const Login = () => {
         email: "kminchelle",
         password: "0lelplR"
     });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        error &&
+            setTimeout(() => {
+                setError(null);
+            }, 3000);
+    }, [error]);
 
     const handleInput = (e) => {
         let input = e.target;
@@ -27,6 +36,7 @@ const Login = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true);
         try {
             const { data } = await axios({
                 method: 'POST',
@@ -37,10 +47,14 @@ const Login = () => {
                 }
             });
 
+            setError(null);
+            setLoading(false);
             dispatch(login(data));
             navigate('/profile');
 
         } catch (error) {
+            setError(error.response.data.message)
+            setLoading(false);
             dispatch(logout());
         }
     }
@@ -50,7 +64,13 @@ const Login = () => {
         : (
             <>
                 <>
-                    <div className="flex justify-center items-center min-h-screen bg-red-100">
+                    <div className="flex flex-col gap-y-4 justify-center items-center min-h-screen bg-red-100">
+                        {
+                            error &&
+                            <div className="rounded-lg bg-red-400 p-4 w-96 border border-white">
+                                <h1 className="font-semibold text-white">{error}</h1>
+                            </div>
+                        }
                         <div className="flex flex-col gap-y-4 bg-white m-2 sm:m-0 rounded-lg px-8 py-6 w-96 shadow-lg">
                             <h1 className="text-2xl font-semibold text-slate-800">Login</h1>
                             <form
@@ -89,10 +109,16 @@ const Login = () => {
                                         />
                                         <label className="text-slate-600 font-semibold">Remember Me !</label>
                                     </div>
-                                    <button
-                                        className="bg-indigo-500 hover:bg-indigo-400 px-6 py-2 text-white font-semibold rounded-lg"
-                                        disabled={(user.email.length && user.password.length) === 0}
-                                    >Login</button>
+                                    {
+                                        loading
+                                            ? <button
+                                                className="bg-gray-400 px-6 py-2 text-white font-semibold rounded-lg"
+                                                disabled
+                                            >Loading...</button>
+                                            : <button
+                                                className="bg-indigo-500 hover:bg-indigo-400 px-6 py-2 text-white font-semibold rounded-lg"
+                                            >Login</button>
+                                    }
                                 </div>
                             </form>
                         </div>
